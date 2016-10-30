@@ -288,7 +288,8 @@ class Archiver extends \Piwik\Plugin\Archiver
         $where = "log_visit.visit_last_action_time >= ?
                 AND log_visit.visit_last_action_time <= ?
                 AND log_visit.idsite = ?
-                 AND log_visit.%s > 0";
+                 AND log_visit.%s > 0" 
+            . $this->getWhereClauseActionIsNotEvent();
 
         $groupBy = "log_visit.%s, idaction";
 
@@ -333,7 +334,8 @@ class Archiver extends \Piwik\Plugin\Archiver
         $where = "log_visit.visit_last_action_time >= ?
                 AND log_visit.visit_last_action_time <= ?
                  AND log_visit.idsite = ?
-                 AND log_visit.%s > 0";
+                 AND log_visit.%s > 0"
+            . $this->getWhereClauseActionIsNotEvent();
 
         $groupBy = "log_visit.%s, idaction";
 
