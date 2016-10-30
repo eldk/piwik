@@ -418,13 +418,6 @@ class Manager
             return false;
         }
 
-        /**
-         * Event triggered after a plugin has been uninstalled.
-         *
-         * @param string $pluginName The plugin that has been uninstalled.
-         */
-        Piwik::postEvent('PluginManager.pluginUninstalled', array($pluginName));
-
         return true;
     }
 
@@ -1086,17 +1079,8 @@ class Manager
             $pluginsInstalled[] = $pluginName;
             $this->updatePluginsInstalledConfig($pluginsInstalled);
             $updater = new Updater();
-            $updater->markComponentSuccessfullyUpdated($plugin->getPluginName(), $plugin->getVersion());
+            $updater->markComponentSuccessfullyUpdated($plugin->getPluginName(), $plugin->getVersion(), $isNew = true);
             $saveConfig = true;
-
-            /**
-             * Event triggered after a new plugin has been installed.
-             *
-             * Note: Might be triggered more than once if the config file is not writable
-             *
-             * @param string $pluginName The plugin that has been installed.
-             */
-            Piwik::postEvent('PluginManager.pluginInstalled', array($pluginName));
         }
 
         if ($saveConfig) {
